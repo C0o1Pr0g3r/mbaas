@@ -8,6 +8,8 @@ enum LoggerType {
   GEOLOCATION_LOGGER = "GEOLOCATION_LOGGER",
 }
 
+Backendless.Logging.setLogReportingPolicy(1, 1);
+
 export class LoggingService {
   public static get AuthLogger() {
     return Backendless.Logging.getLogger(LoggerType.AUTH_LOGGER);

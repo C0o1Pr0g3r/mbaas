@@ -14,7 +14,7 @@ export class FriendsService {
         `login LIKE '%${loginPart}%'`,
       ),
     )) as User[];
-    console.log("users:", users);
+    users.forEach((user) => (user.dateOfBirth = new Date(user.dateOfBirth)));
     return users;
   }
 
@@ -24,7 +24,9 @@ export class FriendsService {
       throw Error(ERROR_MESSAGE);
     }
     user.friendRequests.push(currentUser.login);
-    return await Backendless.Data.of("Users").save(user);
+    const newUser = await Backendless.Data.of("Users").save(user);
+    newUser.dateOfBirth = new Date(newUser.dateOfBirth);
+    return newUser;
   }
 
   public static async acceptFriendRequest(user: User) {
@@ -39,7 +41,9 @@ export class FriendsService {
       1,
     );
     await useAuthStore().update(currentUser);
-    return await Backendless.Data.of("Users").save(user);
+    const newUser = await Backendless.Data.of("Users").save(user);
+    newUser.dateOfBirth = new Date(newUser.dateOfBirth);
+    return newUser;
   }
 
   public static async declineFriendRequest(user: User) {
@@ -62,6 +66,8 @@ export class FriendsService {
     currentUser.friends.splice(currentUser.friends.indexOf(user.login), 1);
     user.friends.splice(user.friends.indexOf(currentUser.login), 1);
     await useAuthStore().update(currentUser);
-    return await Backendless.Data.of("Users").save(user);
+    const newUser = await Backendless.Data.of("Users").save(user);
+    newUser.dateOfBirth = new Date(newUser.dateOfBirth);
+    return newUser;
   }
 }

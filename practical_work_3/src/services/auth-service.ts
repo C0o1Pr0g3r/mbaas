@@ -28,6 +28,8 @@ export class UserService {
   }
 
   public static async update(user: User) {
-    return (await Backendless.UserService.update(user)) as User;
+    const newUser = (await Backendless.UserService.update(user)) as User;
+    newUser.dateOfBirth = new Date(newUser.dateOfBirth);
+    return newUser;
   }
 }

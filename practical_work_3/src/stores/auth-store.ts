@@ -16,10 +16,16 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function register(userToRegister: UserToRegister) {
     authorizedUser.value = await UserService.register(userToRegister);
+    authorizedUser.value.dateOfBirth = new Date(
+      authorizedUser.value.dateOfBirth,
+    );
   }
 
   async function login(userToLogin: UserToLogin) {
     authorizedUser.value = await UserService.login(userToLogin);
+    authorizedUser.value.dateOfBirth = new Date(
+      authorizedUser.value.dateOfBirth,
+    );
   }
 
   async function logout() {
@@ -38,6 +44,9 @@ export const useAuthStore = defineStore("auth", () => {
         user[key] = userPublicData[key];
       }
       authorizedUser.value = await UserService.update(user);
+      authorizedUser.value.dateOfBirth = new Date(
+        authorizedUser.value.dateOfBirth,
+      );
     }
   }
 

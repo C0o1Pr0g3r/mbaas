@@ -54,17 +54,6 @@ const props = defineProps<{
 const imageViewerOpened = ref(false);
 const imageToView = ref(props.user?.avatar ?? "");
 
-onMounted(() => {
-  console.log("isThereFriendRequestTo:", isThereFriendRequestTo);
-  console.log("isFriend:", isFriend);
-  console.log(
-    "useAuthStore().currentUser.value?.login === user.login:",
-    useAuthStore().currentUser.value?.login === props.user?.login,
-  );
-  console.log(useAuthStore().currentUser.value);
-  console.log(props.user);
-});
-
 const emit = defineEmits({
   "remove-from-friends"() {
     return true;

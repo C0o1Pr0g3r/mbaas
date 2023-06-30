@@ -7,6 +7,7 @@
       >
       <RouterLink to="/my-places" class="main-menu__item">My Places</RouterLink>
       <RouterLink to="/friends" class="main-menu__item">Friends</RouterLink>
+      <RouterLink to="/feedback" class="main-menu__item">Feedback</RouterLink>
     </div>
     <div class="main-menu__part">
       <RouterLink

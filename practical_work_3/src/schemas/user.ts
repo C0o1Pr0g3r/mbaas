@@ -24,7 +24,7 @@ export type UserToLogin = Required<Pick<User, "email" | "password">>;
 export type AuthUserData = Pick<User, "email" | "password">;
 export type PublicUserData = Pick<
   User,
-  "login" | "gender" | "country" | "avatar"
+  "login" | "dateOfBirth" | "gender" | "country" | "avatar"
 >;
 
 export type FriendRequest = Pick<User, "login">;

@@ -9,6 +9,23 @@
       <label for="login">Login</label>
       <span v-if="mode === Mode.VIEW">{{ user.login }}</span>
       <input v-else v-model="user.login" type="text" id="login" required />
+      <label for="date-of-birth">Date of birth</label>
+      <span v-if="mode === Mode.VIEW">{{
+        date2ISODate(user.dateOfBirth)
+      }}</span>
+      <input
+        v-else
+        type="date"
+        id="date-of-birth"
+        required
+        :value="date2ISODate(user.dateOfBirth)"
+        :max="date2ISODate(getDate5YearsAgo())"
+        @input="(ev) => {
+          if ((ev.target as HTMLInputElement).value.length > 0) {
+            user.dateOfBirth = new Date((ev.target as HTMLInputElement).value);
+          }
+        }"
+      />
       <label for="gender">Gender</label>
       <span v-if="mode === Mode.VIEW">{{ user.gender }}</span>
       <select v-else v-model="user.gender" id="gender" required>
@@ -65,10 +82,20 @@ import { COUNTRIES } from "@/schemas/country";
 import type { PublicUserData } from "@/schemas/user";
 import { useAuthStore } from "@/stores/auth-store";
 import type { BackendlessError } from "@/schemas/error";
+import { date2ISODate } from "@/utilities";
 
 enum Mode {
   VIEW = "VIEW",
   EDIT = "EDIT",
+}
+
+const getDate5YearsAgo = getDateNYearsAgo.bind(undefined, 5);
+
+function getDateNYearsAgo(n: number) {
+  const nYearsAgo = new Date(
+    new Date().setFullYear(new Date().getFullYear() - n),
+  );
+  return nYearsAgo;
 }
 
 const router = useRouter();

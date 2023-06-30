@@ -5,6 +5,7 @@ import LoginView from "@/views/LoginView.vue";
 import MyProfile from "@/views/MyProfileView.vue";
 import MyPlaces from "@/views/MyPlacesView.vue";
 import FriendsView from "@/views/FriendsView.vue";
+import FeedbackView from "@/views/FeedbackView.vue";
 import FileExplorer from "@/components/file-explorer/FileExplorer.vue";
 import { useAuthStore } from "@/stores/auth-store";
 
@@ -55,6 +56,13 @@ const router = createRouter({
       path: "/friends",
       name: "friends",
       component: FriendsView,
+      beforeEnter: (to, from, next) =>
+        useAuthStore().isLoggedIn ? next() : next("/"),
+    },
+    {
+      path: "/feedback",
+      name: "feedback",
+      component: FeedbackView,
       beforeEnter: (to, from, next) =>
         useAuthStore().isLoggedIn ? next() : next("/"),
     },
